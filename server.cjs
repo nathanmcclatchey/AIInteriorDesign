@@ -46,22 +46,9 @@ const roomTypeLabels = {
   'outdoor': 'Outdoor Space'
 };
 
-// Mock AI service
-async function mockGenerateStyledRoom(roomType, styleType) {
-  await new Promise(resolve => setTimeout(resolve, 2000));
-  
-  const roomImages = {
-    'living-room': 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7',
-    'bedroom': 'https://images.unsplash.com/photo-1540518614846-7eded47432f5',
-    'kitchen': 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136',
-    'dining-room': 'https://images.unsplash.com/photo-1578683010236-d716f9a3f461',
-    'bathroom': 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14',
-    'office': 'https://images.unsplash.com/photo-1497366216548-37526070297c',
-    'outdoor': 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b'
-  };
-  
-  return `${roomImages[roomType] || roomImages['living-room']}?w=800&h=600&fit=crop`;
-}
+// Initialize AI service
+const { OpenAIService } = require('./server/openaiService.cjs');
+const aiService = new OpenAIService();
 
 // API Routes
 
@@ -135,8 +122,9 @@ async function processProjectAsync(projectId, imageBuffer, roomType, styleType) 
   try {
     const startTime = Date.now();
 
-    // Simulate AI processing
-    const styledImageUrl = await mockGenerateStyledRoom(roomType, styleType);
+    // Generate styled image using AI service (real OpenAI or mock fallback)
+    const base64Image = imageBuffer.toString('base64');
+    const styledImageUrl = await aiService.generateStyledRoom(base64Image, roomType, styleType);
     const processingTime = Date.now() - startTime;
 
     // Update project with results

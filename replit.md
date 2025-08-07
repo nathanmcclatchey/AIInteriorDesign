@@ -5,14 +5,14 @@ An AI-powered interior design platform for virtual staging and room transformati
 ## Current Status (August 7, 2025)
 ✅ **Backend Server**: Fully functional Express.js API running on port 3000
 ✅ **Image Upload**: Working file upload with Sharp image processing
-✅ **AI Integration**: Mock AI service providing styled room images
+✅ **AI Integration**: Real OpenAI DALL-E 3 service generating authentic styled room images
 ✅ **Project Management**: CRUD operations for design projects
 ⏳ **Frontend**: React application configured, needs startup troubleshooting
 
 ## Architecture
 - **Backend**: Express.js server (server.cjs) with in-memory storage
 - **Frontend**: React + Vite + TypeScript with Tailwind CSS
-- **AI Service**: Mock implementation using Unsplash images
+- **AI Service**: Real OpenAI DALL-E 3 integration with fallback to mock service
 - **File Processing**: Sharp for image optimization and resizing
 
 ## API Endpoints
