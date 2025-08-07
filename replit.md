@@ -7,7 +7,14 @@ An AI-powered interior design platform for virtual staging and room transformati
 ✅ **Image Upload**: Working file upload with Sharp image processing
 ✅ **AI Integration**: Real OpenAI DALL-E 3 service generating authentic styled room images
 ✅ **Project Management**: CRUD operations for design projects
-⏳ **Frontend**: React application configured, needs startup troubleshooting
+✅ **Frontend**: React application configured and working
+✅ **Deployment**: All deployment issues fixed and ready for Replit deployment
+
+## Deployment
+- **Command**: `NODE_ENV=production npm run server`
+- **Health Check**: Available at `/health` endpoint
+- **Port**: Listens on `0.0.0.0:3000` for external access
+- **Build Process**: Frontend builds with `vite build` to `dist/` directory
 
 ## Architecture
 - **Backend**: Express.js server (server.cjs) with in-memory storage
@@ -109,6 +116,12 @@ This is a full-stack web application that allows users to:
 - Support both development (mock) and production (real AI) modes
 
 ## Recent Changes
-- **2025-01-07**: Initial project creation with full-stack architecture
-- **2025-01-07**: Implemented complete AI interior design platform with OpenAI integration
-- **2025-01-07**: Created responsive UI with real-time project status updates
+- **2025-08-07**: Initial project creation with full-stack architecture
+- **2025-08-07**: Implemented complete AI interior design platform with OpenAI integration
+- **2025-08-07**: Created responsive UI with real-time project status updates
+- **2025-08-07**: Fixed all deployment issues for Replit deployment:
+  * Added `/health` endpoint for deployment health checks
+  * Configured server to listen on `0.0.0.0:3000` for external access
+  * Set up production static file serving for React app
+  * Created working build process with Vite for frontend
+  * Documented deployment commands and environment variables

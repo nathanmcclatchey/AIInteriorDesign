@@ -37,7 +37,14 @@ export class AIDesignService {
 
   private async initializeOpenAI() {
     try {
-      const OpenAI = await import("openai");
+      let OpenAI;
+      try {
+        // @ts-ignore - OpenAI package may not be available
+        OpenAI = await import("openai");
+      } catch (importError) {
+        console.warn("OpenAI package not found, falling back to mock service");
+        return;
+      }
       this.openai = new OpenAI.default({
         apiKey: process.env.OPENAI_API_KEY,
       });

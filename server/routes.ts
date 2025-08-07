@@ -29,6 +29,21 @@ export async function registerRoutes(app: express.Express): Promise<Server> {
   // Serve uploaded images statically
   app.use("/uploads", express.static("uploads"));
 
+  // Serve static frontend files in production
+  if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('dist'));
+  }
+
+  // Health check endpoint for deployment
+  app.get("/health", (req, res) => {
+    res.json({ 
+      status: "healthy", 
+      message: "AI Interior Design Platform API",
+      timestamp: new Date().toISOString(),
+      version: "1.0.0"
+    });
+  });
+
   // Get all design projects
   app.get("/api/projects", async (req, res) => {
     try {
@@ -135,6 +150,13 @@ export async function registerRoutes(app: express.Express): Promise<Server> {
       res.status(500).json({ error: "Failed to delete project" });
     }
   });
+
+  // Catch-all handler for React app in production
+  if (process.env.NODE_ENV === 'production') {
+    app.get('*', (req, res) => {
+      res.sendFile(path.resolve('dist', 'index.html'));
+    });
+  }
 
   const httpServer = createServer(app);
   return httpServer;
