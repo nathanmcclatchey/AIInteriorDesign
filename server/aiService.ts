@@ -1,4 +1,4 @@
-import type { DesignProject } from "../shared/schema";
+import type { DesignProject } from "../shared/schema.js";
 
 // Define OpenAI types to avoid import dependency
 interface ChatCompletion {

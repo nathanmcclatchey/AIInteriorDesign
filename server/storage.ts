@@ -1,4 +1,4 @@
-import type { DesignProject, CreateProjectInput, UpdateProjectInput } from "../shared/schema";
+import type { DesignProject, CreateProjectInput, UpdateProjectInput } from "../shared/schema.js";
 
 // Storage interface for design projects
 export interface IStorage {

@@ -11,10 +11,11 @@ An AI-powered interior design platform for virtual staging and room transformati
 ✅ **Deployment**: All deployment issues fixed and ready for Replit deployment
 
 ## Deployment
-- **Command**: `NODE_ENV=production npm run server`
-- **Health Check**: Available at `/health` endpoint
+- **Build Command**: `node build.js` (builds frontend and server)
+- **Run Command**: `node simple-server.js` (simplified production server)
+- **Health Check**: Available at `/` and `/health` endpoints
 - **Port**: Listens on `0.0.0.0:3000` for external access
-- **Build Process**: Frontend builds with `vite build` to `dist/` directory
+- **Build Process**: Frontend builds to `dist/` directory, server compiles TypeScript to JS
 
 ## Architecture
 - **Backend**: Express.js server (server.cjs) with in-memory storage
@@ -120,8 +121,11 @@ This is a full-stack web application that allows users to:
 - **2025-08-07**: Implemented complete AI interior design platform with OpenAI integration
 - **2025-08-07**: Created responsive UI with real-time project status updates
 - **2025-08-07**: Fixed all deployment issues for Replit deployment:
-  * Added `/health` endpoint for deployment health checks
+  * Added root `/` endpoint that serves React app in production or health status in development
+  * Added dedicated `/health` endpoint for deployment health checks
   * Configured server to listen on `0.0.0.0:3000` for external access
-  * Set up production static file serving for React app
-  * Created working build process with Vite for frontend
-  * Documented deployment commands and environment variables
+  * Set up production static file serving for React app from `dist/` directory
+  * Created working build process: `node build.js` compiles frontend and server
+  * Fixed TypeScript ES modules configuration for proper import resolution
+  * Created simplified production server (`simple-server.js`) to avoid path-to-regexp issues
+  * Validated production deployment: server responds correctly to health checks

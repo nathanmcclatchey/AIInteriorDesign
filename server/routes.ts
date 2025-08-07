@@ -2,10 +2,11 @@ import express from "express";
 import multer from "multer";
 import sharp from "sharp";
 import { createServer, type Server } from "http";
-import { MemStorage } from "./storage";
-import { AIDesignService } from "./aiService";
-import { createProjectSchema, updateProjectSchema } from "../shared/schema";
+import { MemStorage } from "./storage.js";
+import { AIDesignService } from "./aiService.js";
+import { createProjectSchema, updateProjectSchema } from "../shared/schema.js";
 import path from "path";
+import fs from "fs";
 
 const storage = new MemStorage();
 const aiService = new AIDesignService();
@@ -151,10 +152,41 @@ export async function registerRoutes(app: express.Express): Promise<Server> {
     }
   });
 
-  // Catch-all handler for React app in production
+  // Root endpoint for deployment health checks and React app in production
+  app.get('/', (req, res) => {
+    // If in production and index.html exists, serve React app
+    if (process.env.NODE_ENV === 'production') {
+      const indexPath = path.resolve('dist', 'index.html');
+      if (fs.existsSync(indexPath)) {
+        res.sendFile(indexPath);
+      } else {
+        // Fallback health check if no build exists
+        res.json({ 
+          status: "healthy", 
+          message: "AI Interior Design Platform API",
+          timestamp: new Date().toISOString(),
+          version: "1.0.0"
+        });
+      }
+    } else {
+      // Development mode - return API status
+      res.json({ 
+        status: "healthy", 
+        message: "AI Interior Design Platform API - Development Mode",
+        timestamp: new Date().toISOString(),
+        version: "1.0.0"
+      });
+    }
+  });
+
+  // Serve React app for known frontend routes in production
   if (process.env.NODE_ENV === 'production') {
-    app.get('*', (req, res) => {
-      res.sendFile(path.resolve('dist', 'index.html'));
+    // Handle specific frontend routes to avoid wildcard issues
+    const frontendRoutes = ['/gallery', '/design', '/about', '/projects'];
+    frontendRoutes.forEach(route => {
+      app.get(route, (req, res) => {
+        res.sendFile(path.resolve('dist', 'index.html'));
+      });
     });
   }
 
