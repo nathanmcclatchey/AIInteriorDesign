@@ -6,7 +6,7 @@ import { existsSync } from 'fs';
 console.log('🚀 Starting AI Interior Design Platform...');
 
 // Check if built files exist
-if (!existsSync('dist/server/index.js')) {
+if (!existsSync('dist/server/server/index.js')) {
   console.error('❌ Server build not found. Please run the build script first.');
   process.exit(1);
 }
@@ -16,8 +16,12 @@ if (!existsSync('dist/index.html')) {
   process.exit(1);
 }
 
+// Set production environment
+process.env.NODE_ENV = 'production';
+process.env.PORT = process.env.PORT || '3000';
+
 // Import and start the server
-import('./dist/server/index.js').catch(error => {
+import('./dist/server/server/index.js').catch(error => {
   console.error('❌ Failed to start server:', error);
   process.exit(1);
 });
