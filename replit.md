@@ -8,14 +8,21 @@ An AI-powered interior design platform for virtual staging and room transformati
 ✅ **AI Integration**: Real OpenAI DALL-E 3 service generating authentic styled room images
 ✅ **Project Management**: CRUD operations for design projects
 ✅ **Frontend**: React application configured and working
-✅ **Deployment**: All deployment issues fixed and ready for Replit deployment
+✅ **Deployment**: All deployment issues resolved and ready for production deployment
+✅ **Build Process**: Frontend and server TypeScript compilation working correctly
+✅ **Health Checks**: Root endpoint (/) and /health endpoint responding properly
+✅ **Production Configuration**: Server properly configured for external access on 0.0.0.0:3000
 
-## Deployment
-- **Build Command**: `node build.js` (builds frontend and server)
-- **Run Command**: `node simple-server.js` (simplified production server)
-- **Health Check**: Available at `/` and `/health` endpoints
+## Deployment Configuration
+- **Build Command**: `node build.js` (builds frontend with Vite and server with TypeScript)
+- **Run Command**: `node start.js` (production server with built files)
+- **Health Check**: Available at `/` (serves React app) and `/health` (JSON status)
 - **Port**: Listens on `0.0.0.0:3000` for external access
-- **Build Process**: Frontend builds to `dist/` directory, server compiles TypeScript to JS
+- **Build Process**: 
+  * Frontend builds to `dist/` directory with optimized assets
+  * Server compiles TypeScript to `dist/server/` with ES modules
+  * Static files served from `dist/` in production mode
+- **TypeScript Configuration**: Fixed module resolution for ES modules compatibility
 
 ## Architecture
 - **Backend**: Express.js server (server.cjs) with in-memory storage
