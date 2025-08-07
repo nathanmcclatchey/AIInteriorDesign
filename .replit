@@ -15,4 +15,5 @@ externalPort = 5173
 integrations = ["javascript_openai==1.0.0"]
 
 [deployment]
-deploymentTarget = "cloudrun"
+build = "node build.js"
+run = "node start.js"
